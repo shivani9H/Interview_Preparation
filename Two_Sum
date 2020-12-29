@@ -1,0 +1,76 @@
+problem statement:
+Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+Brute force:
+time complexity: o(n^2)
+Approach:-So basically in this problem we have to return two indexes whose sum equal to given target.since one element cant be used twice. we can use two loop to keep track of these
+two indexes and hence can return the pair of indexes.
+// suppose nums is given array and target is sum we have to find.
+
+for (let i = 0; i <= nums.length; i++) {
+    for (let k = i + 1; k <= nums.length - 1; k++) {
+      if (nums[i] + nums[k] == target) {
+        return [i, k];
+      }
+    }
+  }
+  
+  
+ Bit optimized:
+ time complexity: o(nlogn)
+ Approach:-we can use two pointer approach to keep track of indexes which sum to given target.lets take one example
+ Input: nums = [2,11,7,15], target = 9
+ 1. sort the array.
+ 2.first pointer will point to first element and second pointer will point to last element.we will add the elements corresponding to that pointers and will check the sum if its
+ equal to given target or not, if its equal we will simply return the indexes or check if our sum is greater than given target if it is then we need to decrease the sum,  
+ we can only do that by decreasing the second pointer as it is currently pointing to max element of array. if sum is less then target then in that case just increase the 
+ first pointer.
+ 
+Output: [0,1]
+ Solution:
+ vector<int> twoSum(vector<int>& nums, int target) {
+        vector<pair<int,int>>data;
+        int n=nums.size();
+        for(int i=0;i<n;i++)
+        {
+            data.push_back({nums[i],i});  ///pushing a pair of array element and indexes so that after sorting indexes will remian intact.
+        }
+        sort(data.begin(),data.end());  //sorting our vector.
+        int s=0,e=n-1;
+        while(s<e)
+        {
+            int istarget=data[s].first+data[e].first;
+            if(istarget==target)
+                return {data[s].second,data[e].second};
+            if(istarget>target)
+                e--;
+            else
+                s++;
+        }
+        return {};
+    }
+
+  Optimized Approach:
+  time complexity: o(n) //where n is number of element in given array.
+  Using hashmap to keep track of element which we have already traversed and for each upcoming element check if (target-present_element) is present inside the hashmap or not.
+  if it is present then return the indexes.
+  
+     vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int ,int>m;
+        vector<int>v;
+       
+        for(int i=0;i<nums.size();i++)
+        {   
+            int k=target-nums[i];
+            if(m.find(k)!=m.end())
+            {
+              
+                    v.push_back(i);
+                    v.push_back(m[k]);
+            }
+                     m[nums[i]]=i;
+        }
+        return v;
+    }
+  
