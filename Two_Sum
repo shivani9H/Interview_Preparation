@@ -2,6 +2,7 @@ problem statement:
 Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
 You may assume that each input would have exactly one solution, and you may not use the same element twice.
 
+ You can practice it [here](https://leetcode.com/problems/two-sum/)
 Brute force:
 time complexity: o(n^2)
 Approach:-So basically in this problem we have to return two indexes whose sum equal to given target.since one element cant be used twice. we can use two loop to keep track of these
