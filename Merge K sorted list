@@ -1,0 +1,41 @@
+Problem Statement:
+You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.
+
+Approach:
+Brute force:
+One way is to merge all the k list into one single list and sort the list but time complexity in this case will be o(nklog(nk)). where n is number of 
+elemet in the list and k is  number of list.
+
+Optimized Approach:
+keep one priority queue(create a min heap, push first node of each of k list). and keep poping out the minimum one from the top of the priority queue
+and keep pushing  next of the inserted node. time complexity  o(nklogk).
+
+ListNode* mergeKLists(vector<ListNode*>& lists) {
+        class comp ///comparator class for creating min heap of ListNode type
+        {
+            public:
+            bool operator()(ListNode*a,ListNode*b)
+            {
+                return a->val>b->val;
+            }
+        };
+        priority_queue<ListNode*,vector<ListNode*>,comp>pq;
+        for(auto node:lists) //pushing head of each list
+        {   
+            if(node) //list can be empty so...
+            pq.push(node);
+        }
+        ListNode* head=new ListNode(0);//this head will the new List that will be formed after merging all k list.
+        ListNode* cur=head;
+        while(!pq.empty())
+        {
+            ListNode* temp=pq.top();  //poping out the min for the pq
+            pq.pop();
+            if(temp->next)//pushing the next of temp.
+                pq.push(temp->next);
+            cur->next=temp;
+            cur=cur->next;
+        }
+        return head->next;
+    }
+
