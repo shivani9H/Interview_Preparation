@@ -1,0 +1,44 @@
+Problem Statement:
+Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.
+
+Note that the solution set must not contain duplicate triplets.
+
+Approach:
+Just like we solve 2sum problem using pointer approach, we can also solve it using that approach like for each triplet we will fixed the first element and for rest 2 of nmber 
+we can use two pointer approach. lets see solution below.
+
+ vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>>ans;
+        int n=nums.size();
+        if(n<=2)
+            return ans;
+        sort(nums.begin(),nums.end());  //sorting the array same as 2sum refer to [this]
+        for(int i=0;i<n-2;i++)//we are fixxing the first triplet.
+        {
+            if(i==0||nums[i]!=nums[i-1])//just to check it current element is not same as the element we processed earlier.
+            {
+                int sum=0-nums[i];  ///that is going to be our sum we have to find using two pointer.
+                int s=i+1;  
+                int e=n-1;
+                while(s<e)
+                {
+                    int target=nums[s]+nums[e];
+                    if(target==sum)
+                    {
+                        vector<int>x={nums[s],nums[e],nums[i]}; //defining container to store solution.
+                        ans.push_back(x);
+                        while(s<e&&nums[s]==nums[s+1]) //getting rid of duplicate element.
+                            s++;
+                        while(s<e&&nums[e]==nums[e-1]) //getting rid of duplicates from the end of array./
+                            e--;
+                        s++,e--;
+                    }
+                    else if(target>sum)  
+                        e--;
+                    else
+                        s++;
+                }
+            }
+        }
+        return ans;
+    }
