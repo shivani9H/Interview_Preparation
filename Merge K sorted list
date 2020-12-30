@@ -1,6 +1,8 @@
 Problem Statement:
 You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.
 
+you can practice here (https://leetcode.com/problems/merge-k-sorted-lists/solution/)
+
 Approach:
 Brute force:
 One way is to merge all the k list into one single list and sort the list but time complexity in this case will be o(nklog(nk)). where n is number of 
